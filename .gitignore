@@ -35,3 +35,5 @@ ENV/
 uploads/
 .env
 *.log
+datazip.zip
+data/creditcard.csv
