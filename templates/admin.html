@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            color: #fff;
+            background: #000;
+            font-family: 'Poppins', 'Roboto', Arial, sans-serif;
+        }
+        .card {
+            background: #111;
+            border: 2px solid #fff;
+            border-radius: 24px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+            margin-bottom: 32px;
+        }
+        .card-header {
+            background: transparent;
+            color: #fff;
+            border-bottom: none;
+            border-radius: 24px 24px 0 0 !important;
+            padding: 24px 32px 0 32px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+        .result-card {
+            border: 2px solid #fff;
+            border-radius: 24px;
+            background: #181818;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.25);
+            margin-bottom: 32px;
+        }
+        .plot-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.18);
+            background: #181818;
+            padding: 8px;
+            border: 1.5px solid #fff;
+        }
+        .stats-card {
+            background: #181818;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+            color: #fff;
+            border: 1.5px solid #fff;
+        }
+        .stats-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ff6f61;
+        }
+        .stats-label {
+            color: #fff;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #ff6f61 0%, #ff9966 100%);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #fff;
+            transition: background 0.3s;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #ff9966 0%, #ff6f61 100%);
+        }
+        .form-control {
+            background: #181818;
+            border: 1.5px solid #fff;
+            color: #fff;
+            border-radius: 12px;
+        }
+        .form-control:focus {
+            background: #181818;
+            border-color: #ff6f61;
+            color: #fff;
+            box-shadow: 0 0 0 0.2rem rgba(255,111,97,0.15);
+        }
+        .form-label {
+            color: #fff;
+        }
+        .form-text {
+            color: #fff;
+        }
+        .navbar {
+            background: #f5f6fa !important;
+        }
+        .navbar-brand, .nav-link, .dropdown-item {
+            color: #222 !important;
+            font-family: 'Poppins', 'Roboto', Arial, sans-serif;
+        }
+        .dropdown-menu {
+            background: #fff;
+        }
+        .dropdown-item:hover {
+            background: #ff6f61;
+            color: #fff;
+        }
+        h2, h5 {
+            color: #fff;
+            font-family: 'Poppins', 'Roboto', Arial, sans-serif;
+            font-weight: 700;
+        }
+        .accordion-item {
+            background: #181818 !important;
+            border: 2px solid #fff !important;
+            border-radius: 18px !important;
+        }
+        .accordion-button {
+            background: linear-gradient(90deg, #ff6f61 0%, #ff9966 100%) !important;
+            color: #fff !important;
+            font-weight: 700;
+            border-radius: 18px 18px 0 0 !important;
+        }
+        .accordion-body {
+            color: #fff;
+        }
+        .table-dark {
+            background: #222;
+            color: #fff;
+        }
+        .table-striped > tbody > tr:nth-of-type(odd) {
+            background-color: #181818;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand roboto-thin" href="#">Credit Card Fraud Detection</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link slide roboto-light" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link slide roboto-light" href="/admin">Model</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle roboto-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ username }}<i class="fa fa-chevron-down text-sm ml-1"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item roboto-light" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item roboto-light" href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+    <br>
+
+    <div class="container pb-4">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <!-- Upload card -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-upload me-2"></i>Upload CSV File
+                    </div>
+                    <div class="card-body">
+                        <form action="/predict" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="fileInput" class="form-label">
+                                    Choose your CSV file
+                                    <span data-bs-toggle="tooltip" data-bs-placement="right" title="Upload a CSV file (max 2MB) with all required columns: Amount, V1, V2, V3, V4, V5, ... (as in the training data). Only numerical values are allowed. No missing values. The file must not exceed 2MB.">
+                                        <i class="fas fa-info-circle" style="color:#ff6f61; cursor:pointer;"></i>
+                                    </span>
+                                </label>
+                                <input class="form-control" type="file" id="fileInput" name="file" accept=".csv">
+                                <div class="form-text">Only CSV files up to 2MB are allowed.</div>
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                  {% if messages %}
+                                    {% for category, message in messages %}
+                                      <div class="alert alert-danger mt-2" style="color: #fff; background: #ff4d4d; border: none; border-radius: 8px; font-weight: 500;">{{ message }}</div>
+                                    {% endfor %}
+                                  {% endif %}
+                                {% endwith %}
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-play me-2"></i>Run Analysis
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if result %}
+        <!-- Prediction Results -->
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4 roboto-bold">Analysis Results</h2>
+                <!-- Model Comparison Chart -->
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-bar me-2"></i>Model Comparison
+                            </div>
+                            <div class="card-body">
+                                <div class="plot-container text-center">
+                                    <img src="data:image/png;base64,{{ model_comparison_plot }}" alt="Model Comparison" class="mx-auto d-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Individual Model Results -->
+                <div class="row">
+                    <!-- XGBoost Results -->
+                    <div class="col-md-3">
+                        <div class="card result-card">
+                            <div class="card-header">
+                                <i class="fas fa-rocket me-2"></i>XGBoost
+                            </div>
+                            <div class="card-body">
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['XGBoost']['Fraudulent'] }}</div>
+                                    <div class="stats-label">Fraudulent Transactions</div>
+                                </div>
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['XGBoost']['Non-Fraudulent'] }}</div>
+                                    <div class="stats-label">Non-Fraudulent Transactions</div>
+                                </div>
+                                <div class="plot-container text-center">
+                                    <img src="data:image/png;base64,{{ xgb_plot }}" alt="XGBoost Predictions" class="mx-auto d-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Random Forest Results -->
+                    <div class="col-md-3">
+                        <div class="card result-card">
+                            <div class="card-header">
+                                <i class="fas fa-tree me-2"></i>Random Forest
+                            </div>
+                            <div class="card-body">
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['Random Forest']['Fraudulent'] }}</div>
+                                    <div class="stats-label">Fraudulent Transactions</div>
+                                </div>
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['Random Forest']['Non-Fraudulent'] }}</div>
+                                    <div class="stats-label">Non-Fraudulent Transactions</div>
+                                </div>
+                                <div class="plot-container text-center">
+                                    <img src="data:image/png;base64,{{ rf_plot }}" alt="Random Forest Predictions" class="mx-auto d-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SVM Results -->
+                    <div class="col-md-3">
+                        <div class="card result-card">
+                            <div class="card-header">
+                                <i class="fas fa-project-diagram me-2"></i>SVM
+                            </div>
+                            <div class="card-body">
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['SVM']['Fraudulent'] }}</div>
+                                    <div class="stats-label">Fraudulent Transactions</div>
+                                </div>
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['SVM']['Non-Fraudulent'] }}</div>
+                                    <div class="stats-label">Non-Fraudulent Transactions</div>
+                                </div>
+                                <div class="plot-container text-center">
+                                    <img src="data:image/png;base64,{{ svm_plot }}" alt="SVM Predictions" class="mx-auto d-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Logistic Regression Results -->
+                    <div class="col-md-3">
+                        <div class="card result-card">
+                            <div class="card-header">
+                                <i class="fas fa-chart-line me-2"></i>Logistic Regression
+                            </div>
+                            <div class="card-body">
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['Logistic Regression']['Fraudulent'] }}</div>
+                                    <div class="stats-label">Fraudulent Transactions</div>
+                                </div>
+                                <div class="stats-card text-center">
+                                    <div class="stats-value">{{ result['Logistic Regression']['Non-Fraudulent'] }}</div>
+                                    <div class="stats-label">Non-Fraudulent Transactions</div>
+                                </div>
+                                <div class="plot-container text-center">
+                                    <img src="data:image/png;base64,{{ logistic_plot }}" alt="Logistic Regression Predictions" class="mx-auto d-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Uploaded Data Statistics -->
+                <div class="row mt-5 justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card align:items-center">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-2"></i>Uploaded Data Statistics
+                            </div>
+                            <div class="card-body">
+                                <div class="plot-container text-center">
+                                    <img src="data:image/png;base64,{{ uploaded_stat_plot }}" alt="Uploaded Data Statistical Analysis" class="mx-auto d-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Collapsible About the Model Card -->
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-md-10">
+                        <div class="accordion" id="aboutModelAccordion" style="border-radius: 24px; overflow: hidden;">
+                            <div class="accordion-item" style="background: #181818; color: #e6e6e6; border-radius: 24px; border: 2px solid #fff;">
+                                <h2 class="accordion-header" id="headingModel">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModel" aria-expanded="false" aria-controls="collapseModel" style="background: linear-gradient(90deg, #ff6f61 0%, #ff9966 100%); color: #fff; font-weight: 700; border-radius: 24px;">
+                                        <i class="fas fa-info-circle me-2"></i>About the Model & Training Data
+                                    </button>
+                                </h2>
+                                <div id="collapseModel" class="accordion-collapse collapse" aria-labelledby="headingModel" data-bs-parent="#aboutModelAccordion">
+                                    <div class="accordion-body" style="background: #181818; color: #fff; border-radius: 0 0 24px 24px;">
+                                        <h5>Training Dataset Statistics</h5>
+                                        <div class="row mb-3">
+                                            <div class="col-6">
+                                                <span class="stats-value text-danger">{{ fraudulent_count }}</span>
+                                                <span class="stats-label">Fraudulent Transactions</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <span class="stats-value text-success">{{ non_fraudulent_count }}</span>
+                                                <span class="stats-label">Non-Fraudulent Transactions</span>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive mb-4">
+                                            <table class="table table-dark table-striped">
+                                                {{ training_statistical_analysis.to_html(classes='table table-dark table-striped', index=True) | safe }}
+                                            </table>
+                                        </div>
+                                        <hr>
+                                        <h5>Model Information</h5>
+                                        <ul style="font-size: 1.1rem;">
+                                            <li><b>XGBoost:</b> Supervised classification for fraud detection. <span class="badge bg-success ms-2">Accuracy: {{ xgb_acc }}%</span></li>
+                                            <li><b>Random Forest:</b> Supervised ensemble classification for fraud detection. <span class="badge bg-success ms-2">Accuracy: {{ rf_acc }}%</span></li>
+                                            <li><b>SVM:</b> Supervised classification for fraud detection. <span class="badge bg-success ms-2">Accuracy: {{ svm_acc }}%</span></li>
+                                            <li><b>Logistic Regression:</b> Supervised classification for fraud detection. <span class="badge bg-success ms-2">Accuracy: {{ logistic_acc }}%</span></li>
+                                            <li>All models trained on a subset of the public credit card fraud dataset.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Analysis Summary Info Card -->
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-md-10">
+                        <div class="accordion" id="summaryAccordion" style="border-radius: 24px; overflow: hidden;">
+                            <div class="accordion-item" style="background: #181818; color: #e6e6e6; border-radius: 24px; border: 2px solid #fff;">
+                                <h2 class="accordion-header" id="headingSummary">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary" style="background: linear-gradient(90deg, #ff6f61 0%, #ff9966 100%); color: #fff; font-weight: 700; border-radius: 24px;">
+                                        <i class="fas fa-info-circle me-2"></i>Analysis Summary
+                                    </button>
+                                </h2>
+                                <div id="collapseSummary" class="accordion-collapse collapse" aria-labelledby="headingSummary" data-bs-parent="#summaryAccordion">
+                                    <div class="accordion-body" style="background: #181818; color: #fff; border-radius: 0 0 24px 24px;">
+                                        <h5>How to Interpret These Results</h5>
+                                        <ul>
+                                            <li><b>Model Comparison Bar Chart:</b> Shows how many transactions each model classified as fraudulent or non-fraudulent for your uploaded data. If most bars are green (non-fraudulent), your data is mostly normal. If a model finds more frauds than others, it may be more sensitive (but could also have more false positives).</li>
+                                            <li><b>Individual Model Cards & Pie Charts:</b> Show the breakdown of predictions for each model. A high percentage of green means the model thinks most transactions are safe. A higher red slice means the model flagged more transactions as fraud.</li>
+                                            <li><b>Statistical Analysis (Heatmap):</b> Shows summary statistics (mean, std, min, max) for key features in your uploaded data. Helps you see if your data is similar to the training data or has unusual values.</li>
+                                        </ul>
+                                        <b>General Conclusions:</b>
+                                        <ul>
+                                            <li>If all models agree and flag very few transactions as fraudulent, your data is likely safe.</li>
+                                            <li>If one model flags more frauds, it may be more sensitive or less accurate.</li>
+                                            <li>Comparing models helps you understand which is more conservative or aggressive in fraud detection.</li>
+                                            <li>The statistical summary helps you spot outliers or unusual patterns in your data.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enable Bootstrap tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
+</body>
+
+</html>
