@@ -69,8 +69,8 @@ TRAINING_DATA_PATH = os.path.join('data', 'creditcard.csv')
 if not os.path.exists(TRAINING_DATA_PATH):
     logger.info("Dataset not found. Downloading...")
     try:
-        # Google Drive file ID (replace with your file ID)
-        file_id = '1GNxFy8jlTZQLny81XoaYOqfQDQWNFQgh'
+        # Google Drive file ID for creditcard.csv
+        file_id = '1hylQofqyZJOvR05l5j_ZkGOZXwDDsFUJ'
         output = TRAINING_DATA_PATH
         gdown.download(f'https://drive.google.com/uc?id={file_id}', output, quiet=False)
         logger.info("Dataset downloaded successfully")
