@@ -16,8 +16,6 @@ import io
 import base64
 import seaborn as sns
 import xgboost as xgb
-import requests
-import gdown
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -25,8 +23,8 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-# for security purpose
-app.secret_key = os.environ.get('SECRET_KEY', b'_5#y2L"F4Q8z\n\xec]/')
+# for security perpose
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
         
 # Define the directory where uploaded files will be stored
 UPLOAD_FOLDER = 'uploads'
@@ -43,9 +41,7 @@ collection = None
 
 logger.info("Loading environment variables...")
 load_dotenv()
-
-# Get MongoDB URI from environment variable
-MONGO_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/")
+MONGO_URI = os.getenv("mongodb://localhost:27017/")
 
 # Try to connect to MongoDB, but continue without it if connection fails
 try:
@@ -61,25 +57,9 @@ except Exception as e:
     db = None
     collection = None
 
-# Create data directory if it doesn't exist
-os.makedirs('data', exist_ok=True)
-
-# Download dataset if it doesn't exist
-TRAINING_DATA_PATH = os.path.join('data', 'creditcard.csv')
-if not os.path.exists(TRAINING_DATA_PATH):
-    logger.info("Dataset not found. Downloading...")
-    try:
-        # Google Drive file ID for creditcard.csv
-        file_id = '1hylQofqyZJOvR05l5j_ZkGOZXwDDsFUJ'
-        output = TRAINING_DATA_PATH
-        gdown.download(f'https://drive.google.com/uc?id={file_id}', output, quiet=False)
-        logger.info("Dataset downloaded successfully")
-    except Exception as e:
-        logger.error(f"Error downloading dataset: {str(e)}")
-        logger.error("Please manually download the dataset and place it in the data/ directory")
-
 # Load and train models at startup
 logger.info("Starting model training process...")
+TRAINING_DATA_PATH = os.path.join('data', 'creditcard.csv')
 pretrained_models = {}
 training_statistical_analysis = None
 training_fraudulent_count = 0
@@ -538,5 +518,4 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)

@@ -1,90 +1,98 @@
-# Credit Card Fraud Detection System
+# Credit Card Fraud Detection Website
 
-A web-based application for detecting fraudulent credit card transactions using machine learning models. The system analyzes transaction data and provides predictions using multiple ML algorithms.
+## Author's Identity
+- **Author:** Neha Sanwal
+- **Supervisor:** [Supervisor's Name]
 
-## Features
+## Project Overview
+This project is a web-based Credit Card Fraud Detection system that uses machine learning to identify potentially fraudulent transactions. The system provides a user-friendly interface for both administrators and regular users to monitor and manage credit card transactions.
 
-- Multiple ML model predictions (XGBoost, Random Forest, SVM, Logistic Regression)
-- Real-time transaction analysis
-- Interactive visualizations
-- User authentication system
-- Secure data handling
-- Statistical analysis of transactions
+## Files in the Project
+1. **Frontend Files:**
+   - `templates/dashboard.html` - Main dashboard interface
+   - `static/app.css` - Main stylesheet
+   - `static/app.js` - Main JavaScript file
+   - `static/preloader.css` - Preloader animation styles
+   - `static/preloader.js` - Preloader animation logic
 
-## Models Used
+2. **Backend Files:**
+   - `app.py` - Main Flask application
+   - `models/` - Machine learning model files
+   - `templates/` - HTML templates
+   - `static/` - Static assets (CSS, JS, images)
 
-1. **XGBoost**
-   - Gradient boosting framework
-   - High accuracy in fraud detection
-   - Handles imbalanced data well
+## Hardware Requirements
+- **Processor:** Intel Core i3 or equivalent
+- **RAM:** Minimum 4GB (8GB recommended)
+- **Storage:** 500MB free space
+- **Display:** 1366x768 minimum resolution
+- **Internet Connection:** Required for real-time fraud detection
+- **Graphics Card:** Not required (standard graphics sufficient)
 
-2. **Random Forest**
-   - Ensemble learning method
-   - Robust against overfitting
-   - Good for high-dimensional data
+## Software Requirements
+1. **Operating System:**
+   - Windows 10/11
+   - Linux (Ubuntu 20.04 or later)
+   - macOS 10.15 or later
 
-3. **Support Vector Machine (SVM)**
-   - Linear kernel implementation
-   - Effective for binary classification
-   - Good for fraud detection patterns
+2. **Python Environment:**
+   - Python 3.8 or later
+   - pip (Python package manager)
 
-4. **Logistic Regression**
-   - Linear model for binary classification
-   - Fast and interpretable
-   - Good baseline model
+3. **Required Python Packages:**
+   ```
+   Flask==2.0.1
+   scikit-learn==1.0.2
+   pandas==1.3.3
+   numpy==1.21.2
+   ```
 
-## Technical Stack
+4. **Web Technologies:**
+   - HTML5
+   - CSS3
+   - JavaScript (ES6+)
+   - Bootstrap 5.3.0
+   - Tailwind CSS 2.2.19
 
-- **Backend**: Python Flask
-- **Database**: MongoDB
-- **ML Libraries**: scikit-learn, XGBoost
-- **Data Processing**: Pandas, NumPy
-- **Visualization**: Matplotlib, Seaborn
-- **Frontend**: HTML, CSS, JavaScript
+5. **Development Tools:**
+   - Git (for version control)
+   - VS Code or any modern IDE
+   - Modern web browser (Chrome, Firefox, Safari, Edge)
 
-## Setup Instructions
-
-1. Install dependencies:
+## Installation Instructions
+1. Clone the repository
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install required packages:
    ```bash
    pip install -r requirements.txt
    ```
-
-2. Set up environment variables:
-   - Create a `.env` file
-   - Add the following variables:
-     ```
-     SECRET_KEY=your_secret_key
-     MONGODB_URI=your_mongodb_uri
-     ```
-
-3. Run the application:
+4. Run the application:
    ```bash
    python app.py
    ```
 
-## Data Requirements
+## Features
+- Real-time credit card fraud detection
+- User authentication system
+- Admin dashboard
+- Interactive UI with modern design
+- Newsletter subscription
+- Contact and support system
 
-The system expects CSV files with the following features:
-- Transaction amount
-- Time
-- V1-V28 (anonymized features)
-- Class (0 for legitimate, 1 for fraudulent)
+## Security
+- Secure user authentication
+- Encrypted data transmission
+- Protected admin routes
+- Machine learning-based fraud detection
 
-## Security Features
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- Password hashing using bcrypt
-- Session management
-- File upload restrictions
-- Input validation
-- Secure MongoDB connection
-
-## Performance
-
-The system uses multiple models to provide comprehensive fraud detection:
-- Each model is trained on a subset of data for optimal performance
-- Models are evaluated using accuracy metrics
-- Results are presented with visual comparisons
-
-## Note
-
-This system is designed for educational and demonstration purposes. Always ensure proper security measures are in place when handling real financial data.
+## Acknowledgments
+- Font Awesome for icons
+- Google Fonts for typography
+- Bootstrap and Tailwind CSS for UI components
