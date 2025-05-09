@@ -40,6 +40,9 @@
                             <a class="nav-link slide roboto-light" href="#home">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link slide roboto-light" href="#about">About Us</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link slide roboto-light" href="/admin">Model</a>
                         </li>
                         <li class="nav-item dropdown">
@@ -115,40 +118,22 @@
             </div>
         </section>
 
-        <!-- Footer Section -->
-        <section class="footer-section">
-            <div class="footer">
-                <!-- Social Media Links Row -->
-                <div class="row social-links">
-                    <div class="col text-center">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-youtube"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                    </div>
-                </div>
-
-                <!-- Links Row -->
-                <div class="row links">
-                    <div class="col text-center">
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><a href="#">Contact us</a></li>
-                            <li class="list-inline-item"><a href="#">Our Services</a></li>
-                            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                            <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
-                            <li class="list-inline-item"><a href="#">Career</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Copyright Row -->
-                <div class="row copyright">
-                    <div class="col text-center">
-                        <p>CCFD © 2024 CCFD - All rights reserved || Designed By: 22BCE337 | 22BCE347</p>
+        <!-- About Us Section -->
+        <section id="about" class="py-5" style="background: #000; color: #fff;">
+            <div class="container">
+                <h2 class="text-center mb-4" style="font-family: 'Roboto', sans-serif; font-weight: 700;">About Us</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div style="background: rgba(30,30,30,0.95); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.3); border: 2px solid #fff;">
+                            <p class="text-center" style="font-size: 1.2rem; font-family: 'Roboto', sans-serif;">
+                                <b>Credit Card Fraud Detection Website</b> is a modern web application that leverages advanced machine learning models to detect fraudulent credit card transactions in real-time. Our platform combines the power of Random Forest, XGBoost, SVM, and Logistic Regression in a robust ensemble, providing high accuracy and low false positives. With a user-friendly interface, secure authentication, and real-time analytics, we aim to help users and organizations protect themselves from financial fraud efficiently and effectively.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
     </div>
 
 
@@ -186,6 +171,21 @@
                 prevEl: ".swiper-button-prev",
             },
         });
+    </script>
+
+    <script>
+    document.querySelectorAll('.newsletter .submit').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var input = this.closest('.form-box').querySelector('input[type="email"]');
+            if (input && input.value.trim() !== "") {
+                alert("Subscribed!");
+                input.value = "";
+            } else {
+                alert("Please enter a valid email address.");
+            }
+        });
+    });
     </script>
 
     <script src="../static/app.js"></script>

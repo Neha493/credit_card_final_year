@@ -421,12 +421,6 @@ html {
     margin: 0 30px;
 }
 
-.footer .copyright p {
-    margin: 0;
-    color: gray;
-    font-size: 0.8em;
-}
-
 #canvas {
     position: relative;
     z-index: -1;
