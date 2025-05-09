@@ -89,9 +89,6 @@ This project is a web-based Credit Card Fraud Detection system that uses machine
 - Protected admin routes
 - Machine learning-based fraud detection
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgments
 - Font Awesome for icons
 - Google Fonts for typography
